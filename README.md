@@ -4,6 +4,6 @@ Automation test project for Spotify API. This project intends to be a training p
 ## Instructions
 
 ## Authentication process
-![alt text](authenticationSpotify.gif)
+![alt text](/authentificationSpotify.gif)
 
 ## Issues
