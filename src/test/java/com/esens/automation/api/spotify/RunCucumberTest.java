@@ -5,6 +5,10 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"})
+@CucumberOptions(
+        features = {"src/test/resources/com/esens/automation/api/spotify/test_api_spotify.feature"}
+)
 public class RunCucumberTest {
+
 }
+
