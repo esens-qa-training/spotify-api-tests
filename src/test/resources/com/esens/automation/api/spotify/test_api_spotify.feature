@@ -2,17 +2,15 @@ Feature: Tests API Spotify
   Description: Une série de tests de l'API Spotify
 
   Scenario: Playlist
-   Given Get a Playlist
-   And Get a Playlist FailTest
-   And Get Playlist Tracks
-   And Create Playlist
-   And Create Playlist FailTest
-   And Add Track To Playlist
-   And Change Playlist Details
-   And Change Playlist Details FailTest
-   And Get Track
-   And Get Artist
-   And Get Album
+      Given Get a Playlist
+      Given Get Track
+      Given Get Artist
+      Given Get Album
+      Given Get List Of Current User Playlist
+      Given Get Playlist Tracks
+      Given Create Playlist
+      Given Change Playlist Details
+      Given Add Tracks To Playlist
 
 
 

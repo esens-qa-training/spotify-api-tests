@@ -1,28 +1,19 @@
 package com.esens.automation.api.spotify;
 
-import com.wrapper.spotify.model_objects.specification.*;
-import cucumber.api.Scenario;
-import cucumber.api.java.AfterStep;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
-import static org.junit.Assert.*;
+public class Stepdefs extends SpotifyApiTest {
 
-public class Stepdefs extends SpotifyApiSpec{
-
-    @AfterStep
-    public void afterStep(Scenario scenario) {
-        System.out.println();
-        if (!scenario.isFailed()) {
-            System.out.println(ANSI_GREEN + "Passed" + ANSI_RESET);
-        }
-    }
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
 
     @Given("My Access Token")
     public void my_access_token() {
         System.out.println("Start Test API Spotify with client : " + clientID);
-        System.out.println("the token was retrieved during the import of the class SpotifyApiSpec.java in getAccessToken()");
-        System.out.println("My Access Token :" + spotifyApi.getAccessToken());
+        System.out.println("the token was retrieved during the import of the class SpotifyApiTest.java in getAccessToken()");
         System.out.println("This function does not retrieve the token and can be deleted, it is indicative");
     }
 
@@ -33,60 +24,46 @@ public class Stepdefs extends SpotifyApiSpec{
 
     @When("Get Track")
     public void get_track(){
-        Track myTrack = getTrackById(trackID);
-        assertNotNull(myTrack);
+        getTrackById(trackID);
     }
+
     @When("Get Artist")
     public void get_artist(){
-        Artist myArtist = getArtistById(artistID);
-        assertNotNull(myArtist);
+        getArtistById(artistID);
     }
 
     @When("Get Album")
     public void get_album(){
-        Album myAlbum = getAlbumById(albumID);
-        assertNotNull(myAlbum);
+        getAlbumById(albumID);
     }
 
     @When("Get a Playlist FailTest")
     public void get_a_playlist_failtest(){
-        Playlist myFakePlaylist = getPlaylistById_FailTest(fakePlaylistID);
-        assertNull(myFakePlaylist);
+        getPlaylistById_FailTest(fakePlaylistID);
     }
 
-    @When("Add Track To Playlist")
-    public void add_track_to_playlist(){
-        int nbTracksInMyPlaylist = getPlaylistById(myPlaylistID).getTracks().getTotal();
-        AddTracksToPlaylist(userID,myPlaylistID,tracksUris);
-        assertEquals(getPlaylistById(myPlaylistID).getTracks().getItems().length,nbTracksInMyPlaylist+ 2);
+    @When("Get List Of Current User Playlist")
+    public void get_list_of_cureent_user_playlist(){
+        getMyCurrentUsersPlaylisst();
     }
 
     @When("Get Playlist Tracks")
     public void getPlaylistTracksById(){
-        Paging<PlaylistTrack> myPlaylistTracks = getPlaylistTracksById(myPlaylistID);
-        assertNotNull(myPlaylistTracks);
+        getPlaylistTracksById(myPlaylistID);
     }
 
     @When("Create Playlist")
     public void create_playlist(){
-        int nbPlaylist = getMyCurrentUsersPlaylisst().getItems().length;
-        CretaePlaylist(userID,myNewPlaylistName);
-        assertEquals(getMyCurrentUsersPlaylisst().getItems().length,nbPlaylist+1);
+        CreatePlaylist("name=Cikhou&description=soso");
     }
 
-    @When("Create Playlist FailTest")
-    public void create_playlist_failtest(){
-        CretaePlaylistFailTest(myNewPlaylistName);
+    @When("Add Tracks To Playlist")
+    public void add_track_to_playlist(){
+        AddTracksToPlaylist(myPlaylistID,tracksUris);
     }
 
     @When("Change Playlist Details")
     public void change_playlist_details(){
-        ChangePlaylistDetails(myPlaylistID,newNameForChangePlaylistDetail,newDescriptionForChangePlaylistDetail);
-        assertEquals(getPlaylistById(myPlaylistID).getName(),newNameForChangePlaylistDetail);
-    }
-
-    @When("Change Playlist Details FailTest")
-    public void change_playlist_details_failtest(){
-        ChangePlaylistDetailsFailTest(fakePlaylistID,newNameForChangePlaylistDetail,newDescriptionForChangePlaylistDetail);
+        ChangePlaylistDetails(myPlaylistID,newNameForChangePlaylistDetail);
     }
 }
